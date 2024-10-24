@@ -1,0 +1,11 @@
+<launch>
+  <arg name="world_name" default="robotics_library"/>
+
+  <!-- Start the simulation -->
+  <include file="$(find tiago_iaslab_simulation)/launch/start_simulation.launch">
+    <arg name="world_name" value="$(arg world_name)"/>
+  </include>
+
+  <!-- Start the navigation -->
+  <include file="$(find tiago_iaslab_simulation)/launch/navigation.launch"/>
+</launch>   
