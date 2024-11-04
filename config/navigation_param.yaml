@@ -1,0 +1,12 @@
+Reward_param:
+  collision_weight : 10
+  guide_weight : 0.2
+  proximity_weight : 3
+  collision_reward : -1
+  obstacle_proximity : 0.5  
+  distance_weight : 6
+
+Test_Goal:
+  x : 1.2 #1.44 #0.72 #2
+  y : -4.4 #-1.97 #-6.02 #-11
+  z : 0  

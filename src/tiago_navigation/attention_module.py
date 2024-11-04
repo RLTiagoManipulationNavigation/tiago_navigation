@@ -3,15 +3,15 @@ import torch
 import numpy as np
 import rospy
 import torch.nn as nn
-from ddpg.model import Embedding , Feature , Score
+from tiago_navigation.model import Embedding , Feature , Score
 import torch.nn.functional as F
 
 class Spatial_Attention(nn.Module):
     def __init__(self, input_dim):
         super().__init__()
         self.name = 'Spatial Attention'
-        self.n_section = rospy.get_param("/DDPG/n_sector_spatialatt")
-        self.output_dim = rospy.get_param("/DDPG/embedding_output_size")
+        self.n_section = rospy.get_param("/Spatial_Attention/n_sector_spatialatt")
+        self.output_dim = rospy.get_param("/Spatial_Attention/embedding_output_size")
         self.Embedding = Embedding(input_dim)
         self.Score = Score(self.output_dim)
         self.Feature = Feature(self.output_dim)

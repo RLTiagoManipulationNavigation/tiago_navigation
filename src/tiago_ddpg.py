@@ -2,7 +2,7 @@ import gymnasium as gym
 import numpy as np
 import time
 from gymnasium import wrappers
-from ddpg.ddpg import DDPG
+from tiago_navigation.ddpg import DDPG
 import rospy
 import rospkg
 import torch
@@ -12,14 +12,14 @@ from openai_ros.task_envs.tiago import tiago_navigation
 
 if __name__ == '__main__':
 
-    rospy.init_node('tiago_DDPG', anonymous=True, log_level=rospy.DEBUG)
+    rospy.init_node('tiago_DDPG', anonymous=True, log_level=rospy.INFO)
 
     env = gym.make('TiagoNavigation-v0')
     rospy.loginfo("Gym env done!")
     
     # Set the logging system
     rospack = rospkg.RosPack()
-    pkg_path = rospack.get_path('ddpg') + '/train_results'
+    pkg_path = rospack.get_path('tiago_navigation') + '/train_results'
     rospy.loginfo('Moder are savend into folder : ' + pkg_path)
     outdir = '/training_results/DDPG'
     filename = 'DDPG'
@@ -67,6 +67,8 @@ if __name__ == '__main__':
             #terminate episode if Tiago crash 
             if terminated :
                 break
+            if truncated :
+                break
             #add the data obtained from current step into replay buffer 
             
             ddpg_net.update_buffer(curr_observation , observation , reward , action)
@@ -88,6 +90,8 @@ if __name__ == '__main__':
                       #+ " , episode reward : " + str(cumulated_reward) 
                       + " , critic loss of current episode is : " + str(critic_loss)
                       + " , actor loss of current episode is : " + str(actor_loss))
+        if truncated :
+            rospy.loginfo("\n Robot reach the objective with the following reward : " + str(cumulated_reward) )
     #save network weight
     ddpg_net.save(filename , pkg_path)
     #close environment

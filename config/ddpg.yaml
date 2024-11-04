@@ -1,25 +1,13 @@
-Test_Goal:
-  x : 2
-  y : -11
-  z : 0
-
 DDPG:
-  buffer_size: 2000000
-  #batch_size: 64
-  batch_size : 200
   alfa_actor: 0.1
   alfa_critic: 0.1
   discount_factor: 0.99
   soft_target_update: 0.001
-  spatial_att_ourdim : 30 # spatial attention output dimension
-  n_sector_spatialatt : 39 # number of section used inside spatial attention
-  input_spatial_size : 8 # number of elements inside each section of laser scan
-  embedding_output_size : 64 #output dimension of embedding network inside spatial attention 
   
 ADAM_param:
   actor: 0.0001
   #critic: 0.001  
-  critic: 0.0001
+  critic: 0.001
   spatial_attention : 0.01
 
 Ornstein_Uhlenbeck:
@@ -27,27 +15,17 @@ Ornstein_Uhlenbeck:
   sigma: 0.2  
   mu: 0
 
-Reward_param:
-  collision_weight : 10
-  guide_weight : 0.2
-  proximity_weight : 3
-  collision_reward : -1
-  obstacle_proximity : 0.5  
-  distance_weight : 0.6
+Spatial_Attention :
+  spatial_att_ourdim : 30 # spatial attention output dimension
+  n_sector_spatialatt : 8 # number of section used inside spatial attention
+  input_spatial_size : 39 # number of elements inside each section of laser scan
+  embedding_output_size : 64 #output dimension of embedding network inside spatial attention 
+
 
 Training :
-  nepisodes  : 100
+  nepisodes  : 500
   nsteps : 1000  
-
-Tiago:
-  max_laser_value: 25.0 # Value considered Ok, no wall
-  min_laser_value: 0.05 # Value considered there is an obstacle or crashed
-  new_ranges: 2 # How many laser scan reading considered (default dimesnion of tiago io 666)
-  min_range: 0.3 # Minimum meters below wich we consider we have crashed
-  min_linear_velocity : 0.0
-  max_linear_velocity : 0.5
-  min_angular_velocity : -3.14
-  max_angular_velocity : 3.14
-  init_linear_forward_speed: 0.0 # Initial linear speed in which we start each episode
-  init_linear_turn_speed: 0.0 # Initial angular speed in shich we start each episode
+  buffer_size: 2000000
+  #batch_size: 64
+  batch_size : 500
   

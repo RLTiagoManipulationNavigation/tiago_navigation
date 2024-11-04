@@ -33,7 +33,7 @@ class ActorNet(nn.Module):
     out = self.mlp_output(out)
     
     # Bound the outputs
-    output1 = torch.sigmoid(out[:, 0]).unsqueeze(1)  # Bound to (0, 1)
+    output1 = 0.1*torch.sigmoid(out[:, 0]).unsqueeze(1)  # Bound to (0, 1)
     output2 = 0.3 * torch.tanh(out[:, 1]).unsqueeze(1)  # Bound to (-3, 3)
         
     return torch.cat([output1, output2], dim=1)
