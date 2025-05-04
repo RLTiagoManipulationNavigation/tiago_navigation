@@ -1,0 +1,8 @@
+<launch>
+    <!-- Set the params of yaml file -->
+    <rosparam command="load" file="$(find tiago_navigation)/config/ddpg.yaml" />
+    <rosparam command="load" file="$(find tiago_navigation)/config/navigation_param.yaml" />
+    <rosparam command="load" file="$(find tiago_navigation)/config/tiago_param.yaml" />
+    <!-- Launch the training system -->
+    <node pkg="tiago_navigation" name="tiago_test_DDPG" type="test_ddpg.py" output="screen"/>
+</launch>

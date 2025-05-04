@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   openai_ros
+  RL_Algorithms
 )
 
 ## System dependencies are found with CMake's conventions
@@ -106,8 +107,9 @@ catkin_python_setup()
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES ddpg
-#  CATKIN_DEPENDS roscpp rospy std_msgs
+   CATKIN_DEPENDS roscpp rospy std_msgs RL_Algorithms 
 #  DEPENDS system_lib
+
 )
 
 ###########
@@ -168,6 +170,10 @@ include_directories(
 catkin_install_python(PROGRAMS 
   src/test.py
   src/tiago_ddpg.py
+  src/test_ddpg.py
+  src/tiago_tuning.py
+  src/curriculum_learning.py
+  src/plot.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

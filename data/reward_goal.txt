@@ -1,0 +1,2 @@
+At episode : 6 , obtain reward : -3.969089185251515
+At episode : 16 , obtain reward : -20.774015533061952

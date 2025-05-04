@@ -7,6 +7,7 @@ import rospy
 import rospkg
 from nav_msgs.srv import GetPlan
 from geometry_msgs.msg import PoseStamped
+import tf2_ros
 # import our training environment
 from openai_ros.task_envs.tiago import tiago_navigation
 
@@ -14,9 +15,24 @@ if __name__ == '__main__':
 
     rospy.init_node('tiago_DDPG', anonymous=True, log_level=rospy.DEBUG)
 
-    #env = gym.make('TiagoNavigation-v0')
+    env = gym.make('TiagoNavigation-v0')
     rospy.loginfo("Gym env done!")
+    # Initialize TF listener
+    tf_buffer = tf2_ros.Buffer()
+    tf_listener = tf2_ros.TransformListener(tf_buffer)
 
+    transform_laser = tf_buffer.lookup_transform(
+                    'base_laser_link',
+                    'base_footprint',
+                    rospy.Time(0),
+                    rospy.Duration(1.0)
+    )
+            # Print current position
+    rospy.loginfo(f"Current position: x={transform_laser.transform.translation.x}, "
+                         f"y={transform_laser.transform.translation.y}, "
+                         f"z={transform_laser.transform.translation.z}")
+
+    """
     # Define start_pose
     start_pose = PoseStamped()
     start_pose.header.frame_id = "map"  # Use "map" or "odom" as the frame of reference
@@ -55,3 +71,4 @@ if __name__ == '__main__':
         rospy.loginfo(str(response))
     except rospy.ServiceException as e:
         rospy.logerr("Failed to make plan: %s" % e)
+    """
